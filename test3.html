@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quantam One | Beyond The Limit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #050814 0, #020308 45%, #000 100%);
+      color: #f5f5ff;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* HEADER & NAV */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 6vw;
+      position: sticky;
+      top: 0;
+      background: rgba(2,6,23,0.96);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(59,130,246,0.4);
+      z-index: 50;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand img {
+      width: 92px;
+      height: 92px;
+      border-radius: 24px;
+    }
+    .brand-text-main {
+      font-size: 1.5rem;
+      letter-spacing: 0.2em;
+      font-weight: 800;
+    }
+    .brand-text-tag {
+      font-size: 0.78rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: #a5b4fc;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 22px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+    nav a:hover { color: #ff4fd8; }
+
+    .nav-toggle {
+      display: none;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,255,0.7);
+      padding: 7px 14px;
+      cursor: pointer;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: calc(100vh - 80px);
+      padding: 40px 6vw 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .hero-left, .hero-right { flex: 1; }
+
+    .eyebrow {
+      text-transform: uppercase;
+      color: #80d0ff;
+      letter-spacing: 0.3em;
+      font-size: 0.78rem;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: clamp(2.5rem, 4vw, 3.4rem);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    h1 span {
+      background: linear-gradient(120deg,#6cf,#f0f,#ff7af5);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .hero-tagline {
+      font-size: 1.02rem;
+      color: #d0d4ff;
+      margin-bottom: 20px;
+    }
+    .hero-text {
+      max-width: 520px;
+      font-size: 0.96rem;
+      color: #a9b0ff;
+      margin-bottom: 22px;
+    }
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .btn-primary, .btn-outline {
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg,#4f46e5,#ec4899,#f97316);
+      box-shadow: 0 0 22px rgba(236,72,153,0.45);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 30px rgba(236,72,153,0.7);
+    }
+    .btn-outline {
+      background: transparent;
+      border-color: rgba(148,163,255,0.7);
+      color: #e5e7ff;
+    }
+    .btn-outline:hover {
+      background: rgba(15,23,42,0.85);
+      transform: translateY(-1px);
+    }
+    .hero-note {
+      font-size: 0.78rem;
+      color: #818cf8;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    /* HERO RIGHT CARD */
+    .hero-right {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+    .hero-glow {
+      position: absolute;
+      inset: 12% 0 0;
+      filter: blur(60px);
+      background: radial-gradient(circle at 20% 0,#4f46e5,transparent 55%),
+                  radial-gradient(circle at 80% 100%,#ec4899,transparent 55%);
+      opacity: 0.9;
+      z-index: 0;
+    }
+    .phone-card {
+      position: relative;
+      z-index: 1;
+      width: min(320px, 80vw);
+      padding: 22px 18px;
+      border-radius: 30px;
+      background: radial-gradient(circle at 0 0,#111827,#020617 60%);
+      border: 1px solid rgba(148,163,255,0.35);
+      box-shadow: 0 26px 60px rgba(15,23,42,0.9);
+    }
+    .phone-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: #9ca3ff;
+      margin-bottom: 6px;
+    }
+    .phone-main {
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+    }
+    .phone-main span {
+      background: linear-gradient(135deg,#60a5fa,#a855f7,#f97316);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .phone-spec-grid {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 9px;
+      font-size: 0.73rem;
+      margin-top: 12px;
+    }
+    .spec-pill {
+      padding: 7px 8px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(129,140,248,0.75);
+      color: #e5e7ff;
+    }
+
+    /* SECTIONS */
+    .section {
+      padding: 40px 6vw;
+      border-top: 1px solid rgba(30,64,175,0.65);
+      background: radial-gradient(circle at top,#020617 0,#020617 55%,#000 100%);
+    }
+    .section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+    .section-lead {
+      max-width: 700px;
+      color: #c7d2ff;
+      font-size: 0.96rem;
+      margin-bottom: 24px;
+    }
+
+    /* FEATURES GRID */
+    .feature-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
+      gap: 22px;
+    }
+    .feature-card {
+      padding: 18px 18px 16px;
+      border-radius: 18px;
+      background: radial-gradient(circle at top,#020617,#020617 55%,#000 100%);
+      border: 1px solid rgba(55,65,194,0.7);
+      box-shadow: 0 18px 38px rgba(15,23,42,0.9);
+      font-size: 0.9rem;
+    }
+    .feature-card h3 {
+      font-size: 1.02rem;
+      margin-bottom: 6px;
+    }
+    .feature-card ul {
+      list-style: none;
+      margin-top: 8px;
+    }
+    .feature-card li {
+      color: #9ca3ff;
+      margin-bottom: 4px;
+    }
+
+    /* CAMERA LAYOUT */
+    .camera-layout {
+      display: grid;
+      grid-template-columns: minmax(0,1.3fr) minmax(0,1fr);
+      gap: 26px;
+    }
+    .camera-grid {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 10px;
+      margin-top: 10px;
+      font-size: 0.89rem;
+    }
+    .camera-pill {
+      border-radius: 14px;
+      padding: 10px 11px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(129,140,248,0.7);
+    }
+    .camera-pill strong {
+      display: block;
+      font-size: 0.88rem;
+      margin-bottom: 2px;
+    }
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      font-size: 0.78rem;
+    }
+    .badge {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(96,165,250,0.8);
+      background: rgba(15,23,42,0.9);
+      color: #e5e7ff;
+    }
+
+    /* PERFORMANCE & BATTERY */
+    .perf-layout {
+      display: grid;
+      grid-template-columns: minmax(0,1.1fr) minmax(0,1fr);
+      gap: 26px;
+    }
+    .battery-highlight {
+      font-size: 2.1rem;
+      font-weight: 800;
+      background: linear-gradient(135deg,#fbbf24,#22c55e);
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 6px;
+    }
+
+    footer {
+      padding: 16px 6vw 24px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #6b7280;
+      border-top: 1px solid rgba(30,64,175,0.7);
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {  /* common mobile breakpoint [web:69][web:81] */
+      header { padding-inline: 5vw; }
+      nav ul { display: none; }
+      .nav-toggle { display: inline-block; }
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+      .hero-left, .hero-right { width: 100%; }
+      .hero-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero-text { max-width: 100%; }
+      .hero-buttons { justify-content: center; }
+      .brand img {
+        width: 76px;
+        height: 76px;
+      }
+      .camera-layout, .perf-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand">
+      <img src="1000019062.jpeg" alt="Quantam logo" />
+      <div>
+        <div class="brand-text-main">QUANTAM</div>
+        <div class="brand-text-tag">BEYOND THE LIMIT</div>
+      </div>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#camera">Camera</a></li>
+        <li><a href="#performance">Performance</a></li>
+        <li><a href="#battery">Battery</a></li>
+      </ul>
+    </nav>
+
+    <button class="nav-toggle">Menu</button>
+  </header>
+
+  <!-- HOMEPAGE / HERO -->
+  <main id="home" class="hero">
+    <div class="hero-left">
+      <div class="eyebrow">Introducing Quantam One</div>
+      <h1><span>Beyond The Limit</span> of smartphone power.</h1>
+      <p class="hero-tagline">
+        A futuristic flagship built for creators, gamers, and explorers who refuse to compromise.
+      </p>
+      <p class="hero-text">
+        Quantam One combines Samsung camera components, a 6.8‑inch 4K AMOLED panel, Snapdragon 8 Gen 3 performance,
+        a 7000 mAh silicon‑carbon battery, Samsung speakers, and IP69K protection in one bold device.
+      </p>
+      <div class="hero-buttons">
+        <a href="#features"><button class="btn-primary">Explore features</button></a>
+        <a href="#camera"><button class="btn-outline">View camera system</button></a>
+      </div>
+      <p class="hero-note">12–200 MP camera array • 4× optical zoom • All‑day power</p>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-glow"></div>
+      <div class="phone-card">
+        <div class="phone-title">Key specs</div>
+        <div class="phone-main">
+          <span>6.8&quot; 4K AMOLED</span> display with Samsung‑tuned speakers and IP69K durability.
+        </div>
+        <div class="phone-spec-grid">
+          <div class="spec-pill">12 MP main lens</div>
+          <div class="spec-pill">50 MP ultra‑wide</div>
+          <div class="spec-pill">200 MP 4× zoom</div>
+          <div class="spec-pill">12 MP telephoto</div>
+          <div class="spec-pill">12 MP selfie</div>
+          <div class="spec-pill">Snapdragon 8 Gen 3</div>
+          <div class="spec-pill">7000 mAh silicon‑carbon</div>
+          <div class="spec-pill">IP69K rated body</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- CORE FEATURES -->
+  <section id="features" class="section">
+    <h2>Core features</h2>
+    <p class="section-lead">
+      Quantam One focuses on three pillars: pro‑grade imaging, cinematic viewing, and extreme endurance,
+      all inside a rugged shell for real‑world adventures.
+    </p>
+
+    <div class="feature-row">
+      <article class="feature-card">
+        <h3>6.8&quot; 4K AMOLED display</h3>
+        <p>
+          Experience ultra‑sharp detail, deep blacks, and vivid color on a large 6.8‑inch 4K AMOLED panel,
+          ideal for movies, games, and editing.
+        </p>
+        <ul>
+          <li>High resolution with rich contrast</li>
+          <li>Big canvas for multitasking and media</li>
+        </ul>
+      </article>
+
+      <article class="feature-card">
+        <h3>Samsung camera components</h3>
+        <p>
+          Every lens is sourced from Samsung’s ecosystem, giving you reliable optics and image quality across all scenarios.
+        </p>
+        <ul>
+          <li>Versatile quad rear camera array</li>
+          <li>Dedicated 12 MP selfie lens</li>
+        </ul>
+      </article>
+
+      <article class="feature-card">
+        <h3>Flagship performance</h3>
+        <p>
+          The Snapdragon 8 Gen 3 chipset powers console‑level graphics, fast multitasking,
+          and advanced on‑device AI for photography and gaming.
+        </p>
+        <ul>
+          <li>4 nm platform with efficient power use</li>
+          <li>Optimized for high‑FPS gaming and 5G</li>
+        </ul>
+      </article>
+
+      <article class="feature-card">
+        <h3>Built to survive</h3>
+        <p>
+          With an IP69K rating, the phone is sealed against dust and high‑pressure, high‑temperature water jets,
+          making it ready for extreme environments. [web:10][web:13][web:16]
+        </p>
+        <ul>
+          <li>Dust‑tight enclosure</li>
+          <li>Engineered for outdoor and industrial use</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- CAMERA SYSTEM -->
+  <section id="camera" class="section">
+    <h2>Camera system</h2>
+    <p class="section-lead">
+      A five‑lens setup lets you capture everything from sweeping landscapes to tight zoom shots,
+      all tuned with Samsung components for clarity and color.
+    </p>
+
+    <div class="camera-layout">
+      <div>
+        <h3>Rear camera array</h3>
+        <div class="camera-grid">
+          <div class="camera-pill">
+            <strong>12 MP simple lens</strong>
+            Balanced everyday photos with natural colors and detail.
+          </div>
+          <div class="camera-pill">
+            <strong>50 MP ultra‑wide</strong>
+            Capture more of the scene with expansive field of view.
+          </div>
+          <div class="camera-pill">
+            <strong>200 MP 4× optical zoom</strong>
+            High‑resolution zoom for distant subjects without sacrificing sharpness.
+          </div>
+          <div class="camera-pill">
+            <strong>12 MP telephoto</strong>
+            Ideal for portraits with smooth background blur.
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3>Front camera</h3>
+        <p>
+          A 12 MP selfie lens keeps your selfies and video calls crisp,
+          even in challenging indoor or outdoor lighting.
+        </p>
+        <div class="badge-row">
+          <span class="badge">Sharp 12 MP selfies</span>
+          <span class="badge">AI portrait & beautify</span>
+          <span class="badge">4K selfie video</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERFORMANCE & BATTERY -->
+  <section id="performance" class="section">
+    <h2>Performance & sound</h2>
+    <p class="section-lead">
+      Snapdragon 8 Gen 3 and Samsung speakers work together to deliver blazing performance,
+      smooth gameplay, and immersive audio. [web:11][web:17][web:23]
+    </p>
+
+    <div class="perf-layout">
+      <div>
+        <article class="feature-card">
+          <h3>Snapdragon 8 Gen 3 chipset</h3>
+          <p>
+            Built on a 4 nm process, Snapdragon 8 Gen 3 brings faster CPU and GPU performance,
+            plus improved AI efficiency for real‑time enhancements. [web:11][web:14][web:20]
+          </p>
+          <ul>
+            <li>High‑performance cores for heavy tasks</li>
+            <li>Next‑gen Adreno graphics for high‑FPS gaming</li>
+          </ul>
+        </article>
+
+        <article class="feature-card" style="margin-top:18px;">
+          <h3>Samsung‑tuned speakers</h3>
+          <p>
+            Samsung speakers provide clear highs, detailed mids, and satisfying bass,
+            making music, movies, and games sound more immersive.
+          </p>
+          <ul>
+            <li>Stereo layout for wider soundstage</li>
+            <li>Tuned for entertainment and gaming</li>
+          </ul>
+        </article>
+      </div>
+
+      <div id="battery">
+        <article class="feature-card">
+          <div class="battery-highlight">7000 mAh</div>
+          <h3>Silicon‑carbon mega battery</h3>
+          <p>
+            A 7000 mAh silicon‑carbon battery is designed for longer lifespan and extended screen‑on time,
+            keeping you going through intense shooting, gaming, and streaming.
+          </p>
+          <ul>
+            <li>High‑capacity cell for all‑day endurance</li>
+            <li>Fast‑charge ready for quick top‑ups</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+  
+    <!-- CTA -->
+  
+  <section class="cta">
+    <h2>Ready to go beyond the limit?</h2>
+    <p>
+      Quantam One combines pro cameras, brutal performance, and industrial‑grade protection into a single flagship device. 
+      Be the first to experience the next chapter of smartphone power.
+    </p>
+    <div class="hero-buttons" style="justify-content:center;">
+      <button class="btn-primary">Join the waitlist</button>
+      <button class="btn-ghost">Download spec sheet</button>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Quantam. Beyond The Limit.
+  </footer>
+
+</body>
+</html>
